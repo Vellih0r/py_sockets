@@ -1,5 +1,5 @@
 ## Мини-проект: свой TCP-сервер на Python
-(Сделано с помощью [geek for geeks](www.geekforgeeks.com) и [chat gpt](www.chatgpt.com))
+(Сделано с помощью [geek for geeks](https://geekforgeeks.com) и [chat gpt](https://chatgpt.com))
 
 ### Написать простой HTTP-сервер с использованием модуля socket, без Flask:
 - принимать входящие TCP-соединения,
