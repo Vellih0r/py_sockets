@@ -2,10 +2,10 @@ import logging
 from colorama import Fore, Style
 
 # return created custom logger
-def get_logger(name:str, to_file:bool = False, filename:str ='', mode:str='a') -> object:
+def get_logger(name:str, filename:str ='', mode:str='a') -> object:
     """Sets up custom logger with rainbow coloring
-    'file' flag -> boolean (write logs to a file?)
-    'filename' needed only if 'file'=True"""
+    'filename' needed only if you need to log into file
+    mode -> a = append | w = write"""
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
     console_handler = logging.StreamHandler()
@@ -20,17 +20,28 @@ def get_logger(name:str, to_file:bool = False, filename:str ='', mode:str='a') -
             logging.DEBUG : Fore.LIGHTBLACK_EX
         }
 
-        def fromat(self, record):
+        def format(self, record):
             if record.levelno in self.COLORS:
-                record.levelname = f'{self.COLORS[record.levelno]}{record.levelname}{Style.RESET_ALL}'
-                record.msg = f'{self.COLORS[record.levelno]}{record.msg}{Style.RESET_ALL}'
-            return super().format(record)
+                #save original levelname
+                levelname_orig = record.levelname
+                msg_orig = record.msg
+                # add colors
+                color = self.COLORS[record.levelno]
+                record.levelname = f'{color}{record.levelname}{Style.RESET_ALL}'
+                record.msg = f'{color}{record.msg}{Style.RESET_ALL}'
+            formatted = super().format(record)
+            # back to original state
+            record.levelname = levelname_orig
+            record.msg = msg_orig
+            # return result
+            return formatted
 
     console_handler.setFormatter(ReinbowFormatter(fmt='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt=r'%m/%d %H:%M:%S'))
 
-    logger.addHandler(console_handler)
+    if not logger.handlers:
+        logger.addHandler(console_handler)
 
-    if to_file:
+    if len(filename) > 0:
         file_handler = logging.FileHandler(filename=filename, mode=mode)
         formaterr = logging.Formatter(fmt='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt=r'%m/%d %H:%M:%S')
         file_handler.setFormatter(formaterr)
