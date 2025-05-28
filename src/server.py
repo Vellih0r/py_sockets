@@ -7,7 +7,7 @@ from config import HOST, PORT, LOGGER_NAME
 
 def main():
     # get my custom rainbow logger
-    logger = get_logger(LOGGER_NAME, filename='logs.log', mode='w')
+    logger = get_logger(LOGGER_NAME, filename='src/logs.log', mode='w')
 
     try:
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -28,11 +28,11 @@ def main():
         logger.info(f'[>] Request\n{request}')
 
         response = """\
-    HTTP/1.1 200 OK
-    Content-Type: text/html
+HTTP/1.1 200 OK
+Content-Type: text/html
 
-    <html><body><h1>What's a craic?</h1></body></html>
-    """
+<html><body><h1>What's a craic?</h1></body></html>
+"""
 
         client_socket.send(response.encode())
         client_socket.close()
