@@ -29,3 +29,5 @@
 - Что такое порты, bind, listen, accept.
 - Почему web-серверы вроде nginx работают именно так.
 
+[Хорошая и короткая статья по python socket если надо](https://www.geeksforgeeks.org/socket-programming-python/)
+

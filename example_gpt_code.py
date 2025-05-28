@@ -1,10 +1,10 @@
 import socket
 
 HOST = '0.0.0.0'  # слушаем на всех интерфейсах
-PORT = 8080       # можно не быть root
+PORT = 8080       # можно не быть root (порт 80 без root нельзя взять)
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # socket.AF_INET — протокол уровня IPv4; SOCK_STREAM = TCP 
-server_socket.bind((HOST, PORT) # сервер слушает порт 8080 со всех хостов)
+server_socket.bind((HOST, PORT)) # сервер слушает порт 8080 со всех хостов (замечу: bind принимает кортеж)
 server_socket.listen(5) # ждет запросы от клиентов, они становяться в очередь длиной 5
 
 print(f"[*] Сервер запущен на {HOST}:{PORT}")
@@ -27,4 +27,6 @@ Content-Type: text/html
 """
     client_socket.send(response.encode())
     client_socket.close()
+    server_socket.close()
+    break
 
