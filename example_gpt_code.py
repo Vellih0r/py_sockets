@@ -11,8 +11,8 @@ print(f"[*] Сервер запущен на {HOST}:{PORT}")
 
 while True:
     client_socket, client_address = server_socket.accept() # accept возвращает данные
-    # (пока не придет инфа в accept - поток остановлен и ждет)
     # client_address — это кортеж (ip, port) клиента
+    # (пока не придет инфа в accept - поток остановлен и ждет)
     print(f"[+] Подключение от {client_address}")
 
     request = client_socket.recv(1024).decode() #recv(1024) читает до 1024 байт данных из клиентского соединения. Возвращает байты
