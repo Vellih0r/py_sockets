@@ -65,23 +65,28 @@ def define_instrument(request):
 
     return parsed
 
-def print_parsed(parsed):
+def parsed_to_text(parsed):
         """
         Prints parsed request
         If request is correct it will print out every key(method, path, etc.)
         """
-        print('\nPARSED:')
+        text = 'PARSED:\n'
         if 'invalid_request' in parsed:
-            print(parsed)
+            text += f'{parsed}\n'
+            return text
+
         else:
             try:
-                print('Instrument:', parsed['instrument'])
+                text += f'Instrument: {parsed["instrument"]}\n'
             except (KeyError, AttributeError):
                 pass
-            print('Method:', parsed['method'])
-            print('Path:', parsed['path'])
-            print('Headers:', parsed['headers'])
-            print('Body:', parsed['body'])
+            text += f'Method:{parsed["method"]}\n'
+            text += f'Path: {parsed["path"]}\n'
+            text += f'Headers: {parsed["headers"]}\n'
+            text += f'Body: {parsed["body"]}'
+        
+
+        return text
 
 
 if __name__ == '__main__':
@@ -98,5 +103,5 @@ if __name__ == '__main__':
 
     parsed1 = define_instrument(raw1)
     parsed2 = define_instrument(raw2)
-    print_parsed(parsed1)
-    print_parsed(parsed2)
+    print(parsed_to_text(parsed1))
+    print(parsed_to_text(parsed2))

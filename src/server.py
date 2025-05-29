@@ -1,7 +1,7 @@
 import socket
 
 from log import get_logger
-from parser import define_instrument
+from parser import define_instrument, parsed_to_text
 
 from config import HOST, PORT, LOGGER_NAME
 
@@ -24,8 +24,8 @@ def main():
         logger.info(f'[+] Connection from {client_address}')
 
         request = client_socket.recv(1024).decode() # get client request
-        request = define_instrument(request)
-        logger.info(f'[>] Request\n{request}')
+        parsed_text = parsed_to_text(define_instrument(request))
+        logger.info(f'[>] Request\n{parsed_text}')
 
         response = """\
 HTTP/1.1 200 OK
