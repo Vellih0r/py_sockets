@@ -1,7 +1,7 @@
 import socket
 
 from log import get_logger
-from parser import parse
+from parser import define_instrument
 
 from config import HOST, PORT, LOGGER_NAME
 
@@ -24,7 +24,7 @@ def main():
         logger.info(f'[+] Connection from {client_address}')
 
         request = client_socket.recv(1024).decode() # get client request
-        parse(request)
+        request = define_instrument(request)
         logger.info(f'[>] Request\n{request}')
 
         response = """\
@@ -36,8 +36,6 @@ Content-Type: text/html
 
         client_socket.send(response.encode())
         client_socket.close()
-        server_socket.close()
-        break
 
 if __name__ == '__main__':
     main()
