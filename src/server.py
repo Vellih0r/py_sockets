@@ -19,23 +19,24 @@ def main():
 
     logger.info(f'[*] server is up on {HOST}:{PORT}')
 
+    client_socket, client_address = server_socket.accept() # connect client
+    logger.info(f'[+] Connection from {client_address}')
     while True:
-        client_socket, client_address = server_socket.accept() # connect client
-        logger.info(f'[+] Connection from {client_address}')
 
         request = client_socket.recv(1024).decode() # get client request
-        parsed_text = parsed_to_text(define_instrument(request))
+        parsed = define_instrument(request)
+        parsed_text = parsed_to_text(parsed)
         logger.info(f'[>] Request\n{parsed_text}')
 
-        response = """\
-HTTP/1.1 200 OK
-Content-Type: text/html
-
-<html><body><h1>What's a craic?</h1></body></html>
-"""
+        if parsed.get('path') == '/':
+            with open('src/static/index.html', 'r') as f:
+                response = f.read()
+        else:
+            with open('src/static/not_found.html', 'r') as f:
+                response = f.read()
 
         client_socket.send(response.encode())
-        client_socket.close()
+        # client_socket.close()
 
 if __name__ == '__main__':
     main()
