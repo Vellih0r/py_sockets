@@ -1,0 +1,11 @@
+05/31 16:57:49 - socket-server - INFO - server socket created successfuly
+05/31 16:57:49 - socket-server - INFO - [*] server is up on 0.0.0.0:8080
+05/31 16:57:55 - socket-server - INFO - [+] Connection from ('127.0.0.1', 46042)
+05/31 16:57:55 - socket-server - DEBUG - [>] Request: PARSED:
+Instrument: curl
+Method:GET
+Path: /
+Headers: {'host': 'localhost:8080', 'user-agent': 'curl/7.88.1', 'accept': '*/*'}
+Body: 
+05/31 16:57:55 - socket-server - INFO - [>] Request processed
+IP: 127.0.0.1, Path: /, Status: 200
