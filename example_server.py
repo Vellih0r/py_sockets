@@ -27,6 +27,4 @@ Content-Type: text/html
 """
     client_socket.send(response.encode())
     client_socket.close()
-    # server_socket.close()
-    # break
 
